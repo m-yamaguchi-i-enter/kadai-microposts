@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
+// use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UsersController; // 追記
 
 /*
 |--------------------------------------------------------------------------
@@ -22,10 +23,12 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+  // ユーザー一覧とユーザー詳細はログインしていない閲覧者に見せない→authミドルウェア
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::resource('users', UsersController::class, ['only' => ['index', 'show']]);  // 作成されるルートを絞り込み→indexとshowのみ
+    // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 require __DIR__.'/auth.php';
