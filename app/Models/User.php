@@ -42,4 +42,21 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+    
+     /**
+     * このユーザーが所有する投稿。（ Micropostモデルとの関係を定義）
+     */
+     public function microposts()  // userに対してmicropostは複数存在するから複数形
+    {
+        return $this->hasMany(Micropost::class);
+        
+    }
+    
+    /**
+     * このユーザーに関係するモデルの件数(投稿数)をロードする。
+     */
+    public function loadRelationshipCounts()
+    {
+        $this->loadCount('microposts');
+    }
 }
