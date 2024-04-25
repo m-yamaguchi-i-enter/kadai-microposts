@@ -24,6 +24,13 @@ Route::get('/dashboard', [MicropostsController::class, 'index'])->middleware(['a
 
   // ユーザー一覧とユーザー詳細はログインしていない閲覧者に見せない→authミドルウェア
 Route::middleware('auth')->group(function () {
+    Route::prefix('users/{id}')->group(function () {
+        Route::post('follow', [UserFollowController::class, 'store'])->name('user.follow');
+        Route::delete('unfollow', [UserFollowController::class, 'destroy'])->name('user.unfollow');
+        Route::get('followings', [UsersController::class, 'followings'])->name('users.followings');
+        Route::get('followers', [UsersController::class, 'followers'])->name('users.followers');
+    });
+    
     Route::resource('users', UsersController::class, ['only' => ['index', 'show']]);  // 作成されるルートを絞り込み→indexとshowのみ
     // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

@@ -7,14 +7,12 @@
             @include('users.card')
         </aside>
         <div class="sm:col-span-2 mt-4">
-            {{-- タブ --}}  
+            {{-- タブ --}}
             @include('users.navtabs')
-            {{-- 投稿フォーム --}}
-            <!--resources/views/microposts/form.blade.php-->
-            @include('microposts.form')
-            {{-- 投稿一覧 --}}
-            <!--resources/views/microposts/microposts.blade.php-->
-            @include('microposts.microposts')
+            <div class="mt-4">
+                {{-- ユーザー一覧 --}}
+                @include('users.users')
+            </div>
         </div>
     </div>
 @endsection
