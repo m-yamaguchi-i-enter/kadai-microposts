@@ -21,6 +21,8 @@
                             <!--{, }} で囲った場合は、htmlspecialchars関数に通したものが出力される-->
                             <!--｛!!, !!} で囲った場合は、そのまま出力される-->
                         </div>
+                        
+                        @include('micropost_favorites.favorite_button')
                         <div>
                             @if (Auth::id() == $micropost->user_id)
                                 {{-- 投稿削除ボタンのフォーム --}}
@@ -32,6 +34,7 @@
                                 </form>
                             @endif
                         </div>
+                        
                     </div>
                 </li>
             @endforeach
